@@ -1,0 +1,32 @@
+name: AI Operator CI
+on:
+  push:
+    branches: [main, feature/3d-shooter-foundation]
+  pull_request:
+    branches: [main, feature/3d-shooter-foundation]
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validate JavaScript syntax
+        run: |
+          set -e
+          find src scripts -name '*.js' -o -name '*.mjs' | while read -r file; do
+            node --check "$file"
+          done
+      - name: Check required runtime files
+        run: |
+          set -e
+          test -f index.html
+          test -f src/main.js
+          test -f src/game/movementController.js
+          test -f src/game/weaponSystem.js
+          test -f src/game/equipmentSystem.js
+          test -f scripts/check-local-imports.mjs
+      - name: Check unresolved local imports
+        run: node scripts/check-local-imports.mjs

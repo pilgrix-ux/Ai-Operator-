@@ -1,0 +1,4 @@
+import {EquipmentSlot} from './equipmentSystem.js';
+export function attachEquipmentVisuals(player,THREE,weapon,melee,grenade){for(const item of [weapon,melee,grenade])player.add(item);weapon.position.set(.48,1.25,.25);melee.position.set(.48,1.22,.32);grenade.position.set(.5,1.3,.28);setActiveEquipment(player,weapon,melee,grenade,EquipmentSlot.WEAPON)}
+export function setActiveEquipment(player,weapon,melee,grenade,slot){weapon.visible=slot===EquipmentSlot.WEAPON;melee.visible=slot===EquipmentSlot.MELEE;grenade.visible=slot===EquipmentSlot.GRENADE;player.userData.activeEquipment=slot}
+export function equipmentAction(controller,slot,player,enemies,combat,direction){controller.switchTo(slot);if(slot===EquipmentSlot.MELEE)return combat.melee(0,player,enemies);if(slot===EquipmentSlot.GRENADE)return combat.throwGrenade(player,direction);return true}
