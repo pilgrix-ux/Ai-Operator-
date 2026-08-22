@@ -1,10 +1,10 @@
 ; Engine configuration file.
-; Anime 3v3 combat prototype
+; Cursed Clash 3v3 - Godot game project
 config_version=5
 
 [application]
 config/name="Cursed Clash 3v3"
-run/main_scene="res://game/Main.tscn"
+run/main_scene="res://Main.tscn"
 
 [display]
 window/size/viewport_width=1280
