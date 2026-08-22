@@ -6,6 +6,17 @@ var shake := 0.0
 var flash := 0.0
 var overlay: ColorRect
 
+const ALLY_ART := [
+    "res://assets/fighters/nova.svg",
+    "res://assets/fighters/rift.svg",
+    "res://assets/fighters/kairo.svg"
+]
+const ENEMY_ART := [
+    "res://assets/fighters/vex.svg",
+    "res://assets/fighters/mori.svg",
+    "res://assets/fighters/ruin.svg"
+]
+
 func _ready() -> void:
     overlay = ColorRect.new()
     overlay.color = Color(1, 1, 1, 0)
@@ -35,7 +46,8 @@ func _process(delta: float) -> void:
 func _attach_fighter_visual(f: Fighter) -> void:
     var art := Sprite2D.new()
     art.name = "AnimatedFighterArt"
-    art.texture = load("res://assets/fighters/nova.svg" if f.team == 0 else "res://assets/fighters/vex.svg")
+    var paths := ALLY_ART if f.team == 0 else ENEMY_ART
+    art.texture = load(paths[clamp(f.fighter_id, 0, 2)])
     art.position = Vector2(0, -118)
     art.scale = Vector2(0.46, 0.46)
     art.z_index = 2
@@ -51,7 +63,10 @@ func _watch_effects(f: Fighter) -> void:
         art.rotation = lerp(art.rotation, clamp(f.velocity.x / 2500.0, -0.10, 0.10), 0.18)
         art.flip_h = f.facing < 0.0
         var stretch := 1.0
-        if f.attack_cd > 0.0: stretch = 1.05
+        if f.attack_cd > 0.0:
+            stretch = 1.08
+        if f.skill_cd > 1.65:
+            stretch = 0.90 + 0.18 * sin(pulse * 18.0)
         art.scale = Vector2(0.46 * stretch, 0.46 / stretch)
     for e in f.effects:
         if e.type == "hit" or e.type == "ultimate":
