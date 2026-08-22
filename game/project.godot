@@ -1,0 +1,28 @@
+; Engine configuration file.
+; Anime 3v3 combat prototype
+config_version=5
+
+[application]
+config/name="Cursed Clash 3v3"
+run/main_scene="res://game/Main.tscn"
+
+[display]
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="canvas_items"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=false
+
+[input]
+move_left={"deadzone":0.2,"events":[Object(InputEventKey,"physical_keycode":65),Object(InputEventKey,"physical_keycode":4194311)]}
+move_right={"deadzone":0.2,"events":[Object(InputEventKey,"physical_keycode":68),Object(InputEventKey,"physical_keycode":4194313)]}
+jump={"deadzone":0.2,"events":[Object(InputEventKey,"physical_keycode":32)]}
+attack={"deadzone":0.2,"events":[Object(InputEventKey,"physical_keycode":74)]}
+skill={"deadzone":0.2,"events":[Object(InputEventKey,"physical_keycode":75)]}
+ultimate={"deadzone":0.2,"events":[Object(InputEventKey,"physical_keycode":76)]}
+switch_fighter={"deadzone":0.2,"events":[Object(InputEventKey,"physical_keycode":9)]}
